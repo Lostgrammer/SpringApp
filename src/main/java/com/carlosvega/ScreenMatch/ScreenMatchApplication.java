@@ -1,5 +1,7 @@
 package com.carlosvega.ScreenMatch;
 
+import com.carlosvega.ScreenMatch.model.ConvierteDatos;
+import com.carlosvega.ScreenMatch.model.DatosSerie;
 import com.carlosvega.ScreenMatch.service.ConsumoAPI;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,6 +18,12 @@ public class ScreenMatchApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		var consumoAPI = new ConsumoAPI();
 		String jsonResponse =  consumoAPI.obtenerDatos("https://www.omdbapi.com/?t=breaking+bad&apikey=214a8fd4");
-		System.out.println(jsonResponse);
+		System.out.println(jsonResponse); //check json api
+		//deserialize json
+		ConvierteDatos conversor= new ConvierteDatos();
+		DatosSerie datosSerie1 = conversor.obtenerDatos(jsonResponse, DatosSerie.class); //usando como tipo de datros la clase DatosSerie
+		var datos = conversor.obtenerDatos(jsonResponse, DatosSerie.class);
+		System.out.println(datosSerie1);
+		System.out.println(datos);
 	}
 }
