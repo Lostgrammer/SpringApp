@@ -3,6 +3,7 @@ package com.carlosvega.ScreenMatch.model;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
 public class ConvierteDatos implements IConvierteDatos{
     //mapear valores de api
     private ObjectMapper objectMapper = new ObjectMapper();
