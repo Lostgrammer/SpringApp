@@ -8,5 +8,6 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record DatosTemporada(
         @JsonAlias("Season") Integer numero,
-        @JsonAlias("Episodes") List <DatosEpisodio> episodio ) {
+        @JsonAlias("Episodes") List <DatosEpisodio> episodio ) //esta variable mapea la lista de episodios por cada temporada del api json
+{
 }

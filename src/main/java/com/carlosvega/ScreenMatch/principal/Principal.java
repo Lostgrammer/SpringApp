@@ -36,7 +36,7 @@ public class Principal {
 		var datosEpisodio = conversor.obtenerDatos(jsonEpisodeResponse, DatosEpisodio.class);
 		//System.out.println(datosEpisodio);
 
-		//deserialize all seasons
+		//deserialize all seasons with all episodes
 		List<DatosTemporada> datosTemporadas = new ArrayList<>();
 		for (int i = 1; i <= datosSerie.totalTemporadas(); i++) {
 			String jsonTemporadas = consumoAPI.obtenerDatos(URL_BASE + serieName.replace(" ","+") + "&Season=" + i + URL_APIKEY);
@@ -44,6 +44,18 @@ public class Principal {
 			datosTemporadas.add(datosTemporada);
 		}
 		//show list of seasons
-		datosTemporadas.forEach(System.out::println);
+		//datosTemporadas.forEach(System.out::println);
+
+//        for (int i = 0; i < datosTemporadas.size(); i++) {
+//            //definiendo episodiosTemporada con el valor del json api mapeado por DatosTemporada
+//            List<DatosEpisodio> episodiosTemporada = datosTemporadas.get(i).episodio();
+//            var numeroTemporada = datosTemporadas.get(i).numero();
+//            for (int j = 0; j < episodiosTemporada.size(); j++) {
+//                var nombreEpisodio = episodiosTemporada.get(j).titulo();
+//                System.out.println("Temporada " + numeroTemporada +": " + nombreEpisodio);
+//            }
+//        }
+
+        datosTemporadas.forEach(t -> t.episodio().forEach(e -> System.out.println(e.titulo())));
     }
 }
