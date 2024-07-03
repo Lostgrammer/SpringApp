@@ -63,6 +63,6 @@ public class Principal {
                         .map(d -> new Episodio(t.numero(), d)))//d seria cada episodio
                 .collect(Collectors.toList());
 
-        episodios.forEach(t -> System.out.println(t.toString()));
+        episodios.forEach(System.out::println);
     }
 }
