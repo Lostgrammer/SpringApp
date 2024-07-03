@@ -1,6 +1,7 @@
 package com.carlosvega.ScreenMatch;
 
 
+import com.carlosvega.ScreenMatch.principal.EjemploStream;
 import com.carlosvega.ScreenMatch.principal.Principal;
 
 import org.springframework.boot.CommandLineRunner;
@@ -18,5 +19,8 @@ public class ScreenMatchApplication implements CommandLineRunner {
 	public void run(String... args){
 		Principal principal = new Principal();
 		principal.mostrarMenu();
+
+//		EjemploStream ejemploStream = new EjemploStream();
+//		ejemploStream.mostrarStream();
 	}
 }
