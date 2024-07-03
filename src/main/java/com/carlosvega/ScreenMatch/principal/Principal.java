@@ -1,9 +1,6 @@
 package com.carlosvega.ScreenMatch.principal;
 
-import com.carlosvega.ScreenMatch.model.ConvierteDatos;
-import com.carlosvega.ScreenMatch.model.DatosEpisodio;
-import com.carlosvega.ScreenMatch.model.DatosSerie;
-import com.carlosvega.ScreenMatch.model.DatosTemporada;
+import com.carlosvega.ScreenMatch.model.*;
 import com.carlosvega.ScreenMatch.service.ConsumoAPI;
 
 import java.util.ArrayList;
@@ -52,13 +49,20 @@ public class Principal {
         List<DatosEpisodio> datosEpisodios = datosTemporadas.stream()
                 .flatMap(t -> t.episodio().stream())
                 .collect(Collectors.toList());
-
         //sort list to 5 best rated episodes
-        System.out.println("Top 5 episodios");
-        datosEpisodios.stream()
-                .filter(e -> ! e.rating().equalsIgnoreCase("N/A"))
-                .sorted(Comparator.comparing(DatosEpisodio::rating).reversed())
-                .limit(5)
-                .forEach(System.out::println);
+//        System.out.println("Top 5 episodios");
+//        datosEpisodios.stream()
+//                .filter(e -> ! e.rating().equalsIgnoreCase("N/A"))
+//                .sorted(Comparator.comparing(DatosEpisodio::rating).reversed())
+//                .limit(5)
+//                .forEach(System.out::println);
+
+        //unify numero variables from DatosTemporada and DatosEpisodio in Episodio class list
+        List<Episodio> episodios = datosTemporadas.stream()
+                .flatMap(t -> t.episodio().stream() //t seria cada temporada
+                        .map(d -> new Episodio(t.numero(), d)))//d seria cada episodio
+                .collect(Collectors.toList());
+
+        episodios.forEach(t -> System.out.println(t.toString()));
     }
 }
