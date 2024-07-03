@@ -7,8 +7,10 @@ import com.carlosvega.ScreenMatch.model.DatosTemporada;
 import com.carlosvega.ScreenMatch.service.ConsumoAPI;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Principal {
     //variables
@@ -40,22 +42,23 @@ public class Principal {
 		List<DatosTemporada> datosTemporadas = new ArrayList<>();
 		for (int i = 1; i <= datosSerie.totalTemporadas(); i++) {
 			String jsonTemporadas = consumoAPI.obtenerDatos(URL_BASE + serieName.replace(" ","+") + "&Season=" + i + URL_APIKEY);
-			var datosTemporada = conversor.obtenerDatos(jsonTemporadas,DatosTemporada.class);
+			var datosTemporada = conversor.obtenerDatos(jsonTemporadas, DatosTemporada.class);
 			datosTemporadas.add(datosTemporada);
 		}
 		//show list of seasons
-		//datosTemporadas.forEach(System.out::println);
+        //datosTemporadas.forEach(t -> t.episodio().forEach(e -> System.out.println(e.titulo())));
 
-//        for (int i = 0; i < datosTemporadas.size(); i++) {
-//            //definiendo episodiosTemporada con el valor del json api mapeado por DatosTemporada
-//            List<DatosEpisodio> episodiosTemporada = datosTemporadas.get(i).episodio();
-//            var numeroTemporada = datosTemporadas.get(i).numero();
-//            for (int j = 0; j < episodiosTemporada.size(); j++) {
-//                var nombreEpisodio = episodiosTemporada.get(j).titulo();
-//                System.out.println("Temporada " + numeroTemporada +": " + nombreEpisodio);
-//            }
-//        }
+        //create new list DatosEpisodio type
+        List<DatosEpisodio> datosEpisodios = datosTemporadas.stream()
+                .flatMap(t -> t.episodio().stream())
+                .collect(Collectors.toList());
 
-        datosTemporadas.forEach(t -> t.episodio().forEach(e -> System.out.println(e.titulo())));
+        //sort list to 5 best rated episodes
+        System.out.println("Top 5 episodios");
+        datosEpisodios.stream()
+                .filter(e -> ! e.rating().equalsIgnoreCase("N/A"))
+                .sorted(Comparator.comparing(DatosEpisodio::rating).reversed())
+                .limit(5)
+                .forEach(System.out::println);
     }
 }
