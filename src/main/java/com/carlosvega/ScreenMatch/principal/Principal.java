@@ -3,6 +3,8 @@ package com.carlosvega.ScreenMatch.principal;
 import com.carlosvega.ScreenMatch.model.*;
 import com.carlosvega.ScreenMatch.service.ConsumoAPI;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -62,7 +64,20 @@ public class Principal {
                 .flatMap(t -> t.episodio().stream() //t seria cada temporada
                         .map(d -> new Episodio(t.numero(), d)))//d seria cada episodio
                 .collect(Collectors.toList());
+        //episodios.forEach(System.out::println);
 
-        episodios.forEach(System.out::println);
+        //filtrar resultados por año
+        System.out.println("Indique a partir de que año quiere que se visualicen los episodios: ");
+        var fecha = input.nextInt();
+        input.nextLine();
+        LocalDate localDate = LocalDate.of(fecha,1,1);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        episodios.stream()
+                .filter(e -> e.getFechaLanzamiento() != null && e.getFechaLanzamiento().isAfter(localDate))
+                .forEach(e -> System.out.println(
+                        "Temporada: " + e.getTemporada() +
+                        ", Episodio: " + e.getNumeroEpisodio() +
+                        ", Fecha de lanzamiento: " + e.getFechaLanzamiento().format(dtf)
+                ));
     }
 }
