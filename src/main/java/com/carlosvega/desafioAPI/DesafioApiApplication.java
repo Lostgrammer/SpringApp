@@ -1,18 +1,16 @@
-package com.carlosvega.ScreenMatch;
+package com.carlosvega.desafioAPI;
 
 
-import com.carlosvega.ScreenMatch.principal.EjemploStream;
-import com.carlosvega.ScreenMatch.principal.Principal;
-
+import com.carlosvega.desafioAPI.principal.Principal;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ScreenMatchApplication implements CommandLineRunner {
+public class DesafioApiApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ScreenMatchApplication.class, args);
+		SpringApplication.run(DesafioApiApplication.class, args);
 	}
 
 	@Override
