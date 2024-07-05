@@ -45,29 +45,29 @@ public class Principal {
 			datosTemporadas.add(datosTemporada);
 		}
 		//show list of seasons
-        //datosTemporadas.forEach(t -> t.episodio().forEach(e -> System.out.println(e.titulo())));
+        datosTemporadas.forEach(t -> t.episodio().forEach(e -> System.out.println(e.titulo())));
 
         //create new list DatosEpisodio type
-        List<DatosEpisodio> datosEpisodios = datosTemporadas.stream()
-                .flatMap(t -> t.episodio().stream())
-                .collect(Collectors.toList());
-        //sort list to 5 best rated episodes
-        System.out.println("Top 5 episodios");
-        datosEpisodios.stream()
-                .filter(e -> !e.rating().equalsIgnoreCase("N/A"))
-                .peek(e -> System.out.println("Primer filtro:" + e))
-                .sorted(Comparator.comparing(DatosEpisodio::rating).reversed())
-                .peek(e -> System.out.println("Segundo filtro:" + e))
-                .limit(5)
-                .peek(e -> System.out.println("Tercer filtro:" + e))
-                .forEach(System.out::println);
-
-        //unify numero variables from DatosTemporada and DatosEpisodio in Episodio class list
-        List<Episodio> episodios = datosTemporadas.stream()
-                .flatMap(t -> t.episodio().stream() //t seria cada temporada
-                        .map(d -> new Episodio(t.numero(), d)))//d seria cada episodio
-                .collect(Collectors.toList());
-        //episodios.forEach(System.out::println);
+//        List<DatosEpisodio> datosEpisodios = datosTemporadas.stream()
+//                .flatMap(t -> t.episodio().stream())
+//                .collect(Collectors.toList());
+//        //sort list to 5 best rated episodes
+//        System.out.println("Top 5 episodios");
+//        datosEpisodios.stream()
+//                .filter(e -> !e.rating().equalsIgnoreCase("N/A"))
+//                .peek(e -> System.out.println("Primer filtro:" + e))
+//                .sorted(Comparator.comparing(DatosEpisodio::rating).reversed())
+//                .peek(e -> System.out.println("Segundo filtro:" + e))
+//                .limit(5)
+//                .peek(e -> System.out.println("Tercer filtro:" + e))
+//                .forEach(System.out::println);
+//
+//        //unify numero variables from DatosTemporada and DatosEpisodio in Episodio class list
+//        List<Episodio> episodios = datosTemporadas.stream()
+//                .flatMap(t -> t.episodio().stream() //t seria cada temporada
+//                        .map(d -> new Episodio(t.numero(), d)))//d seria cada episodio
+//                .collect(Collectors.toList());
+//        //episodios.forEach(System.out::println);
 
         //filtrar resultados por año
 //        System.out.println("Indique a partir de que año quiere que se visualicen los episodios: ");

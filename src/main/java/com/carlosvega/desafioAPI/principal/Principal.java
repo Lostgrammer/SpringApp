@@ -1,6 +1,8 @@
 package com.carlosvega.desafioAPI.principal;
 
 import com.carlosvega.ScreenMatch.service.ConsumoAPI;
+import com.carlosvega.desafioAPI.model.Amiibo;
+import com.carlosvega.desafioAPI.model.FechaLanzamiento;
 import com.carlosvega.desafioAPI.model.ListaAmiibo;
 import com.carlosvega.desafioAPI.model.TransformaJson;
 
@@ -21,10 +23,17 @@ public class Principal {
         //mostrar lista completa de amiibos
         json = consumoAPI.obtenerDatos(URL_BASE);
         //mapear
-        List<ListaAmiibo> listaAmiibos = new ArrayList<>();
-
         var mapListAmiibos = transformadorJson.obtenerConvertirJson(json, ListaAmiibo.class);
-        System.out.println(mapListAmiibos);
+        //ingresar datos a nueva lista de datatype Amiibo
+        List<Amiibo>amiibos = new ArrayList<>();
+        for (int i = 0; i < mapListAmiibos.ListaAmiibo().size(); i++) {
+            var j = mapListAmiibos.ListaAmiibo().get(i);
+            Amiibo amiibo = new Amiibo(j.seriePerteneciente(),
+                    j.personaje(),
+                    j.personajeEspecifico(), j.fechaLanzamiento());
+            amiibos.add(amiibo);
+        }
+        amiibos.forEach(System.out::println);
 
 //        //mostrar json de amiibo especifico
 //        System.out.println("ingrese el nombre de un amiibo que quiere buscar:");

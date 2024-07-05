@@ -10,7 +10,7 @@ public record AmiiboData(
         @JsonAlias("amiiboSeries") String seriePerteneciente,
         @JsonAlias("character") String personaje,
         @JsonAlias("name") String personajeEspecifico,
-        @JsonAlias("release" )FechaLanzamiento fechaLanzamiento
+        @JsonAlias("release" ) FechaLanzamiento fechaLanzamiento
 
 ) {
 }
